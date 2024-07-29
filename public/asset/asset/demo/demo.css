@@ -1,0 +1,99 @@
+
+.panel-header-sm {
+  height: 105px;
+}
+
+.panel-header {
+  height: 160px;
+  padding-top: 80px;
+  padding-bottom: 45px;
+  background: #4881eb;
+  background: -webkit-gradient(linear, left top, right top, from(#317bd4), color-stop(60%, #3b7dc9), to(#3b7ec7));
+  background: linear-gradient(to right, #3b7fd1 0%, #3a7dca 60%, #2b7bd1 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.tim-row {
+  margin-bottom: 20px;
+}
+
+.tim-white-buttons {
+  background-color: #777777;
+}
+
+.typography-line {
+  padding-left: 25%;
+  margin-bottom: 35px;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.typography-line span {
+  bottom: 10px;
+  color: #c0c1c2;
+  display: block;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 13px;
+  left: 0;
+  position: absolute;
+  width: 260px;
+  text-transform: none;
+}
+
+.tim-row {
+  padding-top: 60px;
+}
+
+.tim-row h3 {
+  margin-top: 0;
+}
+
+.offline-doc .page-header {
+  display: flex;
+  align-items: center;
+}
+
+.offline-doc .footer {
+  position: absolute;
+  width: 100%;
+  background: transparent;
+  bottom: 0;
+  color: #fff;
+  z-index: 1;
+}
+
+@media all and (min-width: 992px) {
+  .sidebar .nav>li.active-pro {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+  }
+}
+
+label{
+  font-weight: bold;
+}
+
+.card.card-upgrade .card-category {
+  max-width: 530px;
+  margin: 0 auto;
+}
+.re{
+  background-color: #64a1eb;
+  font-weight: bold;
+}
+
+.hdi{
+  background-color: #4790e9;
+}
+.rt{
+  color: white;
+  background-color: #64a1eb ;
+}
+.ry{
+  color: white;
+  background-color: #828c99 ;
+}

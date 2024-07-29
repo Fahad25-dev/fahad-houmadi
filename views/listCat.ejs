@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+  <div class="container">
+  <div class="d-flex justify-content-between">
+    <h1>LIST DES Produit</h1> 
+    <a href="" class="btn btn-outline-primary"
+    style="margin-top:17px">Ajouter</a>
+  </div>
+    <table class="table">
+     <% if (locals.success != '') { %>
+        <div class="alert alert-success" id="success"><%= locals.success %></div>
+     <% } %>
+     <thead>
+         <th>LIBELLE</th>
+         <th>DESCRIPTION</th>
+         <th>ACTIONS</th>
+     </thead>
+     <tbody>
+         <% categories.forEach(p => { %>
+             <tr>
+                 <td><%= p.libelles %></td>
+                 <td><%= p.description %></td>
+                 <td>
+                     <a href="/categorie/update/<%= p.id %>" class="btn btn-primary">Editer</a>
+                     <a href="/categorie/delete/<%= p.id %>" class="btn btn-danger ml-3">Supprimer</a>
+                 </td>
+             </tr>
+         <% }) %>
+     </tbody>
+    </table>
+  </div>
+
+
+  <script>
+    let success = '<%= locals.success %>'
+    if(success != '') {
+        setTimeout(() => {
+            document.getElementById('success').style.display = 'none'
+        }, 3000);
+    }
+</script>
+</body>
+</html>
