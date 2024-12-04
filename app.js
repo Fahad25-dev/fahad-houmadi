@@ -64,10 +64,13 @@ app.use('/email', require('./routes/email.router'))
 app.use('/commande', require('./routes/commande.router'))
 app.use('/formation',require('./routes/Formation.router'))
 app.use('/formateur',require('./routes/Formateur.router'))
+app.use('/participant',require('./routes/Participant.router'))
 //const produitRouter = require('./routes/Produit.router');
 app.get('/', (req, res) => {
     res.render('accl');
 });
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 app.listen(PORT, () => {
     console.log(`Server listen on http://localhost:${PORT}`)

@@ -57,15 +57,12 @@
     <!-- End Icons Navigation -->
   <nav class="header-nav ms-auto ">
     <ul class="d-flex align-items-center ">
-
       <li class="nav-item d-block d-lg-none">
         <a class="nav-link nav-icon search-bar-toggle " href="#">
           <i class="bi bi-search "></i>
         </a>
       </li><!-- End Search Icon-->
-
       <li class="nav-item dropdown">
-
         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
           <i class="bi bi-bell"></i>
           <span class="badge bg-primary badge-number">4</span>
@@ -79,7 +76,6 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-
           <li class="notification-item">
             <i class="bi bi-exclamation-circle text-warning"></i>
             <div>
@@ -349,7 +345,7 @@
               </a>
             </li>
             <li>
-              <a href="{{route('create.participant')}}">
+              <a href="/participant/liste">
                 <i class="bi bi-circle"></i><span>Gestion des participants</span>
               </a>
             </li>
@@ -435,13 +431,14 @@
          <th class="text-white bg-primary">Date</th>
          <th class="text-white bg-primary">Montant</th>
          <th class="text-white bg-primary">ACTIONS</th>
+         <th  class="text-white bg-primary" >Actions</th>
      </thead>
      <tbody>
         <% Commande.forEach(p => { %>
             <tr>
                 <td><%= p.id %></td>
-                <td><%= p.produit_id %></td>
-                <td><%= p.client_id %></td>
+                <td><%= p.produit ? p.produit.nom : 'Non défini' %></td>
+                <td><%= p.client ? p.client.nomclient : 'Non défini'  %></td>
                 <td><%= p.adresse %></td>
                 <td><%= p.livre %></td>
                 <td><%= p.date %></td>
@@ -450,12 +447,22 @@
                   <a href="/commande/update/<%= p.id %>" class="btn btn-primary">Editer</a>
                   <a href="/commande/delete/<%= p.id %>" class="btn btn-danger ml-3">Supprimer</a>
                 </td>
+                <td>
+                  <form action="/commande/bloque/<%= p.id %>" method="post">
+                      <button type="submit" class="btn btn-warning">
+                          <% if (p.isBlocked) { %>
+                              Débloquer
+                          <% } else { %>
+                              Bloquer
+                          <% } %>
+                      </button>
+                  </form>
+              </td>
             </tr>
         <% }) %>
      </tbody>
     </table>
   </div>
-
   <script>
     let success = '<%= locals.success %>'
     if(success != '') {

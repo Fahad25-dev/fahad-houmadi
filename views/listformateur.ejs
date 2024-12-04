@@ -351,7 +351,7 @@
               </a>
             </li>
             <li>
-              <a href="{{route('create.participant')}}">
+              <a href="/participant/liste">
                 <i class="bi bi-circle"></i><span>Gestion des participants</span>
               </a>
             </li>
@@ -456,8 +456,17 @@
                 <td><%= p.heure_travailler %></td>
                 <td><%= p.duree_traviller %></td>
                 <td>
-                  <a href="/formateur/update/<%= p.id %>" class="btn btn-primary">Editer</a>
-                  <a href="/formateur/delete/<%= p.id %>" class="btn btn-danger ml-3">Supprimer</a>
+                  <div class="row">
+                    <div class="col-4">
+                      <a href="/formateur/update/<%= p.id %>" class="btn btn-primary fa fa-pen">Editer</a>
+                    </div>
+                    <div class="col-8">
+                      <button type="button" class="btn btn-danger form-control fhi fa fa-pen" data-bs-toggle="modal" data-bs-target="#largeModal1">
+                        <i class="fa fa-trash"></i>
+                      Supprimer 
+                    </button>
+                    </div>
+                  </div>
                 </td>
             </tr>
         <% }) %>
@@ -473,7 +482,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-         
             <div class="modal-body">
                 <div class="modal-body">
                     <div class="container">
@@ -532,6 +540,37 @@
       </div>
     </div>
   </div><!-- End Large Modal-->
+
+  <div class="modal fade" id="largeModal1" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                             <h3 class="text-center text-danger" >Voulez vous supprimer cette Formateur </h3>
+                             <br>
+                             <br>
+                             <% formateurs.forEach(p => { %>
+                              <tr>
+                                <a href="/formateur/delete/id" class="btn btn-primary fa fa-pen">Supprimer</a>
+                              </tr>
+                          <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- End Large Modal -->   
 
   <script>
     let success = '<%= locals.success %>'

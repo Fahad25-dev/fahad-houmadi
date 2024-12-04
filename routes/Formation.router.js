@@ -9,7 +9,10 @@ const FormationController = require('../controllers/FormationController');
 
 router.get('/list', FormationController.list);
 router.get('/add',FormationController.formationlist)
-router.post('/add',upload.single('photo'),FormationController.ajouterformation);
+router.post('/add', upload.single('Photo'), (req, res, next) => {
+    console.log("Requête POST reçue à /formation/add");
+    next();
+}, FormationController.ajouterformation);
 
 
 module.exports = router;

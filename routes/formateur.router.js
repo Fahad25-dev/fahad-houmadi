@@ -9,7 +9,7 @@ router.get('/get',FormateurController.getlimit)
 router.post('/add',FormateurController.ajouterformteur);
 router.get('/delete/:id',FormateurController.delete)
 router.get('/update/:id',FormateurController.edit)
-router.post('/update/',FormateurController.update)
+router.post('/update/',FormateurController.updateFormateur)
 
 module.exports = router;
 

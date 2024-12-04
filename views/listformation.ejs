@@ -351,7 +351,7 @@
               </a>
             </li>
             <li>
-              <a href="{{route('create.participant')}}">
+              <a href="/participant/liste">
                 <i class="bi bi-circle"></i><span>Gestion des participants</span>
               </a>
             </li>
@@ -457,7 +457,11 @@
                 <td><%= p.nombre_participant %></td>
                 <td><%= p.Montant %></td>
                 <td>
-                  <img src="/uploads/<%= formations.photo %>" alt="<%= formations.nom_formation %>" width="100">
+                  <% if (p.Photo) { %>
+                      <img src="/uploads/<%= p.Photo %>" width="100">
+                  <% } else { %>
+                      Pas d'image
+                  <% } %>
               </td>
                 <td>
                   <a href="/formation/update/<%= p.id %>" class="btn btn-primary">Editer</a>

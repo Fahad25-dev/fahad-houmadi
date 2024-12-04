@@ -54,7 +54,7 @@ module.exports = class FormateurController{
             adresse_formateur:adresse_formateur,
             affectation_formateur:adresse_formateur,
             heure_travailler:heure_travailler,
-            duree_traviller:heure_travailler
+            duree_traviller:duree_traviller
         }).then((result) =>{
             req.flash('success',"Enregistrement effectue avec success");
             res.redirect('/formateur/list')
@@ -88,19 +88,19 @@ module.exports = class FormateurController{
         });
     }
 
-    static update(req,res){
+    static updateFormateur(req,res){
         const {id,nom_formateur,prenom_formateur,adresse_formateur,affectation_formateur,heure_travailler,duree_traviller} = req.body
         Formateur.update({
-            id:id,
-            nom_formateur:nom_formateur,
-            prenom_formateur:prenom_formateur,
-            adresse_formateur:adresse_formateur,
-            affectation_formateur:affectation_formateur,
-            heure_travailler:heure_travailler,
-            duree_traviller:duree_traviller
+            nom_formateur: nom_formateur,
+            prenom_formateur: prenom_formateur,
+            adresse_formateur: adresse_formateur,
+            affectation_formateur: affectation_formateur,
+            heure_travailler :heure_travailler,
+            duree_traviller: duree_traviller
         },
         {
-            where:{id:id}
+        where:{id: id}
+    
         }).then((result) =>{
             req.flash('success',"Modification effectue avec success")
             res.redirect('/formateur/list')

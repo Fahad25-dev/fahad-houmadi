@@ -11,4 +11,7 @@ router.get('/update/:id',CommandeController.edit)
 router.post('/update',CommandeController.update)
 router.get('/add-rechercher',CommandeController.rechercher)
 
+// Route pour bloquer ou débloquer une commande
+router.post('/commande/bloque/:id', CommandeController.bloque);
+
 module.exports = router;

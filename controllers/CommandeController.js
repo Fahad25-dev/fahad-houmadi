@@ -5,7 +5,14 @@ const {Op} = require('sequelize')
 
 module.exports = class CommandeController{
     static list (req, res) {
-        Commande.findAll()
+        Commande.findAll(
+            {
+                include: [
+                    { model: Produit, as: 'produit', attributes: ['nom'] }, // Inclure le nom du produit
+                    { model: Client, as: 'client', attributes: ['nomclient'] }    // Inclure le nom du client
+                ]
+            }
+        )
         .then((result) => {
             res.render('listecommande', { Commande : result })
         }).catch((err) =>{
@@ -70,10 +77,18 @@ module.exports = class CommandeController{
 
     static edit(req , res){
         const id = req.params.id
-        Commande.findByPk(id)
-        .then((result) =>{
-            res.render('editCommande',{Commande: result})
-        }).catch((err) =>{
+        Promise.all([
+            Commande.findByPk(id),
+            Produit.findAll(),
+            Client.findAll()
+        ]).then(([commande, produit, client]) => {
+            if(!commande){
+                req.flash('error',"Commande introuvable")
+                return res.redirect('/commande/list')
+            }
+            res.render('editCommande',{Commande:commande, produit:produit, client:client})
+        })
+       .catch((err) =>{
             req.flash('error',"Error Edit")
             res.redirect('/commande/list')
         })
@@ -118,7 +133,37 @@ module.exports = class CommandeController{
         })
     }
 
-    static bloque(req , res){
-        
+    static bloque(req, res) {
+        const id = req.params.id;
+    
+        // Utiliser findByPk pour trouver une commande par son ID
+        Commande.findByPk(id)
+        .then((commande) => {
+            if (!commande) {
+                console.log("Commande introuvable", id);
+                req.flash('error', "Commande introuvable");
+                return res.redirect('/commande/list');
+            }
+            // Changer l'état de 'isBlocked'
+            const newStatut = !commande.isBlocked;
+            console.log("Ancien statut:", commande.isBlocked, "Nouveau statut:", newStatut);
+            commande.update({ isBlocked: newStatut })
+            .then(() => {
+                const message = newStatut ? "Commande bloquée avec succès" : "Commande débloquée avec succès";
+                req.flash('success', message);
+                res.redirect('/commande/list');
+            })
+            .catch((err) => {
+                console.error("Erreur lors de la mise à jour de la commande:", err);
+                req.flash('error', "Erreur lors de la mise à jour de la commande");
+                res.redirect('/commande/list');
+            });
+        })
+        .catch((err) => {
+            console.error("Erreur lors de la récupération de la commande:", err);
+            req.flash('error', "Erreur lors de la récupération de la commande");
+            res.redirect('/commande/list');
+        });
     }
+    
 }
