@@ -421,9 +421,9 @@
      <tbody>
         <% Facture.forEach(p => { %>
             <tr>
-                <td><%= p.projetId %></td>
-                <td><%= p.employeId %></td>
-                <td><%= p.clientId %></td>
+                <td><%= p.projet ? p.projet.nom_projet :'non defeni' %></td>
+                <td><%= p.employe ? p.employe.nom_employe :'non defeni' %></td>
+                <td><%= p.client ? p.client.nomclient : 'non defeni' %></td>
                 <td><%= p.adress %></td>
                 <td><%= p.datadebt %></td>
                 <td><%= p.datadefn %></td>

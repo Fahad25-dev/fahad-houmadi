@@ -391,7 +391,7 @@
               <i class="bi bi-envelope"></i>
               <span>Email</span>
             </a>
-          </li><!-- End Contact Page Nav -->
+          </li>
       </ul>
   
   </aside><!-- End Sidebar-->
@@ -409,16 +409,34 @@
                         <form action="/facture/update" method="POST">
                           <input type="hidden" name="id"  id="id" value="<%= facture.id %>">
                             <div class="form-group">
-                                <label for="Produits">produit_id</label>
-                                <input type="text"name="projetId" id="projetId" value="<%= facture.projetId %>" class="form-select">
+                              <label for="projetId">Projet</label>
+                              <select name="projetId" id="projetId" class="form-select">
+                                <% projet.forEach(c => { %>
+                                  <option value="<%= c.id %>" <%= facture.projetId === c.id ? 'selected' : '' %>>
+                                      <%= c.nom_projet %>
+                                  </option>
+                              <% }) %>
+                              </select>
                             </div>
                             <div class="form-group">
-                                <label for="clients">employeId</label>
-                                <input type="text"name="employeId" id="employeId" value="<%= facture.employeId %>" class="form-select">
+                              <label for="employeId">employe</label>
+                              <select name="employeId" id="employeId" class="form-select">
+                                <% employe.forEach(c => { %>
+                                  <option value="<%= c.id %>" <%= facture.employeId === c.id ? 'selected' : '' %>>
+                                      <%= c.nom_employe %>
+                                  </option>
+                              <% }) %>
+                              </select>
                             </div>
                             <div class="form-group">
                                 <label for="clients">clientId</label>
-                                <input type="text"name="clientId" id="clientId" value="<%= facture.clientId %>" class="form-select">
+                                <select name="clientId" id="clientId" class="form-select">
+                                  <% client.forEach(c => { %>
+                                      <option value="<%= c.id %>" <%= facture.clientId === c.id ? 'selected' : '' %>>
+                                          <%= c.nomclient %>
+                                      </option>
+                                  <% }) %>
+                              </select>
                             </div>
                             <div class="form-group">
                                 <label for="quantite">adresse</label>

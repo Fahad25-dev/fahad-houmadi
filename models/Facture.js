@@ -27,6 +27,6 @@ module.exports = Facture.init(
     }
 )
 
-Facture.belongsTo(Client,{foreignKey:'clientId'})
-Facture.belongsTo(Employe,{foreignKey:'employeId'})
-Facture.belongsTo(Projet,{foreignKey:'projetId'})
+Facture.belongsTo(Client,{as: 'client', foreignKey:'clientId'})
+Facture.belongsTo(Employe,{as:'employe' ,foreignKey:'employeId'})
+Facture.belongsTo(Projet,{as: 'projet', foreignKey:'projetId'})

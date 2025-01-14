@@ -5,7 +5,16 @@ const Client = require('../models/Client');
 module.exports= class FactureController{
 
     static list(req, res){
-        Facture.findAll()
+        Facture.findAll(
+            {
+                include:[
+                    {model: Employe,as:'employe',attributes:['nom_employe'] },
+                    {model:Client ,as:'client',attributes:['nomclient']},
+                    {model:Projet,as:'projet',attributes:['nom_projet']}
+
+                ]
+            }
+        )
         .then((result) =>{
             res.render('listFacture',{Facture: result});
         }).catch((err) =>{
@@ -76,9 +85,18 @@ module.exports= class FactureController{
 
     static edit(req , res){
         const id = req.params.id
-        Facture.findByPk(id)
-        .then((result) =>{
-            res.render('editFacture',{facture:result})
+        Promise.all([
+            Facture.findByPk(id),
+            Employe.findAll(),
+            Client.findAll(),
+            Projet.findAll()
+        ])
+        .then(([facture, client, employe, projet]) =>{
+            if(!facture){
+                req.flash('error',"error")
+              return  res.redirect('/facture/list')
+            }
+            res.render('editFacture',{facture:facture, client:client, employe:employe, projet:projet})
         }).catch((err) =>{
             req.flash('error',"error")
             res.redirect('/facture/list')

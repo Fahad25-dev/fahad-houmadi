@@ -133,37 +133,33 @@ module.exports = class CommandeController{
         })
     }
 
+   // CommandeController.js
+
     static bloque(req, res) {
         const id = req.params.id;
-    
-        // Utiliser findByPk pour trouver une commande par son ID
+        
+        // Exemple de logique pour trouver et bloquer une commande
         Commande.findByPk(id)
-        .then((commande) => {
-            if (!commande) {
-                console.log("Commande introuvable", id);
-                req.flash('error', "Commande introuvable");
-                return res.redirect('/commande/list');
-            }
-            // Changer l'état de 'isBlocked'
-            const newStatut = !commande.isBlocked;
-            console.log("Ancien statut:", commande.isBlocked, "Nouveau statut:", newStatut);
-            commande.update({ isBlocked: newStatut })
-            .then(() => {
-                const message = newStatut ? "Commande bloquée avec succès" : "Commande débloquée avec succès";
-                req.flash('success', message);
-                res.redirect('/commande/list');
+            .then((commande) => {
+                if (!commande) {
+                    req.flash('error', "Commande introuvable");
+                    return res.redirect('/commande/list');
+                }
+                const newStatut = !commande.isBlocked;
+                commande.update({ isBlocked: newStatut })
+                    .then(() => {
+                        const message = newStatut ? "Commande bloquée avec succès" : "Commande débloquée avec succès";
+                        req.flash('success', message);
+                        res.redirect('/commande/list');
+                    })
+                    .catch((err) => {
+                        req.flash('error', "Erreur lors de la mise à jour de la commande");
+                        res.redirect('/commande/list');
+                    });
             })
             .catch((err) => {
-                console.error("Erreur lors de la mise à jour de la commande:", err);
-                req.flash('error', "Erreur lors de la mise à jour de la commande");
+                req.flash('error', "Erreur lors de la récupération de la commande");
                 res.redirect('/commande/list');
             });
-        })
-        .catch((err) => {
-            console.error("Erreur lors de la récupération de la commande:", err);
-            req.flash('error', "Erreur lors de la récupération de la commande");
-            res.redirect('/commande/list');
-        });
     }
-    
 }

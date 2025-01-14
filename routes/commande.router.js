@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
+
 const CommandeController = require('../controllers/CommandeController');
 
 router.get('/list',CommandeController.list)
@@ -12,6 +15,8 @@ router.post('/update',CommandeController.update)
 router.get('/add-rechercher',CommandeController.rechercher)
 
 // Route pour bloquer ou débloquer une commande
-router.post('/commande/bloque/:id', CommandeController.bloque);
+router.post('/commande/bloque/:id', csrfProtection, CommandeController.bloque);
+
+
 
 module.exports = router;
